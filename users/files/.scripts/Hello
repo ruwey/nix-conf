@@ -1,0 +1,11 @@
+#!/bin/bash
+# Get an array of all the installed fonts
+IFS=$'\n' fonts=($(ls -1 /usr/share/figlet/fonts | grep ".tlf\|.flf" | sed 's/\..*//g'))
+
+while [[ true ]]; do
+	font=${fonts[$((1 + $RANDOM % ${#fonts[*]}))]}
+	toilet --gay -t --font "fonts/$font" $@
+	echo $font
+	sleep 3
+	clear
+done

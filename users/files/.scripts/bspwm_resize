@@ -1,0 +1,28 @@
+#!/bin/bash
+# General resize script for bspwm
+
+# If there is a second argument, use it for the resize amount
+size=${2:-'10'}
+
+# Set resize direction
+direction=$1
+
+if [ -n "$(bspc query -T -n | grep '"state":"tiled"')" ]; then
+	# If the window is tiled, resize the windows around it to make
+	# it seem like the window is expanding/contracting
+	case "$direction" in
+		west)  bspc node @west  -r -"$size" || bspc node @east  -r -"$size" ;;
+		east)  bspc node @west  -r +"$size" || bspc node @east  -r +"$size" ;;
+		north) bspc node @south -r -"$size" || bspc node @north -r -"$size" ;;
+		south) bspc node @south -r +"$size" || bspc node @north -r +"$size" ;;
+	esac
+else
+	# Otherwise, resize the window like it is floating
+	case "$direction" in
+		west)  bspc node -z bottom_right -"$size" 0 ;;
+		east)  bspc node -z bottom_right +"$size" 0 ;;
+		north) bspc node -z bottom_right 0 -"$size" ;;
+		south) bspc node -z bottom_right 0 +"$size" ;;
+	esac
+fi
+

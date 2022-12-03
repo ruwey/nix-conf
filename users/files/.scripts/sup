@@ -1,0 +1,16 @@
+#!/bin/bash
+
+tput setaf 1;
+printf "  ____  __  __  _____    \n"
+tput setaf 2
+printf " /',__\/\ \/\ \/\ '__\`\  \n"
+tput setaf 3
+printf "/\__, \`\ \ \_\ \ \ \L\ \ \n"
+tput setaf 4;
+printf "\/\____/\ \____/\ \ ,__/ \n"
+tput setaf 5
+printf " \/___/  \/___/  \ \ \/  \n"
+tput setaf 6
+printf "                  \ \_\  \n"
+tput setaf 7
+printf "                   \/_/  \n"

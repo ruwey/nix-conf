@@ -1,0 +1,6 @@
+#!/bin/bash
+
+FONT="fonts/DOS Rebel"
+
+toilet -f "$FONT" Welcome Back, -t
+toilet -f "$FONT" RUWEY | lolcat

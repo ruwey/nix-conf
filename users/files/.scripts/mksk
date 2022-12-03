@@ -1,0 +1,9 @@
+#!/bin/bash
+
+FILE=$HOME/.scripts/$1
+if [ ! -e $FILE ]
+then
+	echo "#!/bin/bash" > $FILE
+	chmod +x $FILE
+fi
+nvim $FILE

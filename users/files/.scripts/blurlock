@@ -1,0 +1,24 @@
+#!/bin/bash
+# A basic blur lock screen
+
+# Capture the screen
+maim /tmp/lock_bg
+
+# Make a blurred version of the screenshot
+convert /tmp/lock_bg -blur 0x10 /tmp/lock_bg_blur
+
+# Remove the old picture
+rm /tmp/lock_bg
+
+# Lock the screen
+i3lock -ui /tmp/lock_bg_blur
+
+# If the -s flag is passed, suspend as well
+if [ "$1" = "-s" ]; then
+	# Wait to make sure lock if finished by the time of suspend
+	sleep 1 
+	sudo loginctl suspend
+elif [ "$1" = "-h" ]; then
+	sleep 1
+	sudo loginctl hibernate
+fi

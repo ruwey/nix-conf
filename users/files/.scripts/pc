@@ -1,0 +1,10 @@
+#!/bin/bash
+# pc [input] [output]
+# A simple script to coppy a file/folder with a progress bar
+
+if [ "$(file $1 | awk '{ print $2 }')" = "directory" ]; then
+	tar -c $1 | pv -s $(du -sb $1 | awk '{ print $1 }') | tar -x -C $2
+else
+	pv $1 > $2
+fi
+

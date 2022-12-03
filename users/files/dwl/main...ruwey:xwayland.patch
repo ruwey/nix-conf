@@ -1,0 +1,11 @@
+diff --git a/config.mk b/config.mk
+index 9ac4082..c893387 100644
+--- a/config.mk
++++ b/config.mk
+@@ -10,5 +10,5 @@ MANDIR = $(PREFIX)/share/man
+ XWAYLAND =
+ XLIBS =
+ # Uncomment to build XWayland support
+-#XWAYLAND = -DXWAYLAND
++XWAYLAND = -DXWAYLAND
+ XLIBS = xcb

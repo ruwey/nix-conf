@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# chMp <media player>
+# A script to change media players for mpris
+
+# Set default dmenu command
+dcmd="${DMENU_CMD:-dmenu -l 4}"
+
+# Get all available players
+players=$( playerctl -l )
+
+# If an argument is passed, use it as the player
+if [[ -n $1 ]]; then
+	# If there is an argument passed then attempt to set it as mp
+	[ -n $(grep $1 <<< $players) ] && echo $1 > $HOME/.local/share/mediaPlayer
+else	# Start check menu
+	# Ask user what player to choose
+	choice=$($dcmd -p "Media Player" <<< $players) 
+	# Set choice as mp
+	[[ -n $choice ]] && echo $choice > $HOME/.local/share/mediaPlayer
+fi

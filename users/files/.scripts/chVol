@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# change Volume
+# chVol CHANGE 
+
+# The sink to use
+sink="$(pactl info | grep "Default Sink" | cut -d' ' -f3)"
+
+# Actually change volume
+if [[ $@ = 'mute' ]]; then
+	pactl -- set-sink-mute $sink toggle # What to do if chVol is followed by mute
+else
+	pactl -- set-sink-volume "$sink" $@ # What to do if a number follows chVol
+fi
+
+# Notification
+# Get volume of the sink
+volume="$(pactl list sinks | grep -A 7 "Name: $sink" | tail -1 | sed 's/[/%]//g' | awk '{print $4}')"
+# Wether the sink is muted
+mute="$(pactl list sinks | grep -A 6 "Name: $sink" | tail -1 | awk '{print $2}')"
+
+
+if [ $mute = 'yes' ]; then
+	toXOB "$volume!"
+else
+	toXOB "$volume"
+fi
+
+#if [[ $volume == 0 || $mute == yes ]]; then
+#	# If Muted
+#	dunstify -a "chVol" -u low -r "$msgId" "Volume Muted"
+#else
+#	dunstify -a "chVol" -u low -i audio-volume-high -r "$msgId" \
+#		"墳 Volume: ${volume}%" "$(getProg 20 "▉" "-" $volume)"
+#fi

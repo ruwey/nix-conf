@@ -1,0 +1,30 @@
+#!/bin/sh
+# Power Menu Script
+
+# Dmenu Comand
+dcmd="${DMENU_CMD:-dmenu}"
+
+# Get what user wants to do
+action=$(echo -e "Power Down\nReboot\nSuspend\nHibernate\nLock\nBlank Screen" | $dcmd -i)
+
+case $action in
+	"Power Down")
+		systemctl poweroff
+		;;
+	"Reboot")
+		systemctl reboot
+		;;
+	"Suspend")
+		blurlock -s
+		;;
+	"Hibernate")
+		blurlock -h
+		;;
+	"Lock")
+		blurlock
+		;;
+	"Blank Screen")
+		sleep 3
+		xset dpms force off
+		;;
+esac

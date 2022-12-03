@@ -1,0 +1,5 @@
+#!/bin/bash
+# playerctl-match [string] [command]
+# run a command on every mpris player that matches string string
+
+playerctl -l | grep "$1" | xargs -d '\n' -I '%%%' -- playerctl -p %%% $2

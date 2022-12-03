@@ -1,0 +1,7 @@
+#!/bin/bash
+
+picom-trans -c 75
+
+sleep 0.15
+
+picom-trans -c 100

@@ -1,0 +1,41 @@
+#!/bin/bash
+# Run a color script 
+
+# Check if the Color-Scripts repository is installed
+[[ ! -f $HOME/Programs/Color-Scripts/README.md ]] && git clone https://github.com/stark/Color-Scripts.git $HOME/Programs/Color-Scripts
+
+# Default script folder
+FOLDER=$HOME/Programs/Color-Scripts/color-scripts
+
+# Parse arguments
+while (( "$#" )); do
+	case "$1" in 
+		-t|--test)
+			FOLDER=$HOME/Programs/Color-Scripts/test-color-support
+			shift
+			;;
+		-l|--list)
+			LS=1
+			shift
+			;;
+		-*|--*)
+			echo "Invalid argument: $1"
+			exit 1
+			;;
+		*)
+			SCRIPTS+=("$1")
+			shift
+	esac
+		
+done
+
+if [ $LS ]; then
+	ls $FOLDER
+elif [ ${#SCRIPTS[@]} -gt 1 ]; then
+	for i in "${SCRIPTS[@]}"; do
+		echo $i:
+		$FOLDER/$i
+	done
+else
+	$FOLDER/${SCRIPTS[0]}
+fi

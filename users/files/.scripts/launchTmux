@@ -1,0 +1,21 @@
+#!/bin/sh
+
+sessions=$(tmux ls -F "#S (#{t:session_created})")
+
+choice=$(printf "$sessions\nnew\nkill" | rofi -dmenu)
+
+case $choice in
+	"new")
+		choice=$(rofi -dmenu -p "" -mesg "Name For New Tmux Window" -l 0)
+		termite -e "tmux new -s '$choice'"
+		;;
+	"kill")
+		choice=$(echo "$sessions" | rofi -dmenu -p "Which One?" | awk '{ print $1}')
+		echo $choice
+		tmux kill-session -t $choice
+		;;
+	*)
+		choice=$(echo $choice | awk '{ print $1 }')
+		termite -e "tmux attach -t $choice"
+esac
+

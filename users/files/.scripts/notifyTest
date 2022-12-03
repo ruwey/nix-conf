@@ -1,0 +1,15 @@
+#!/bin/bash
+# Test notification daemon
+case $1 in
+	"-d")
+		for (( i = 0; i < 3; i++ )); do
+			dunstify -r 555 -u $i "Test Notification" $i
+			sleep 0.5;
+		done
+		;;
+	*)
+		notify-send -u low Test low
+		notify-send -u normal Test normal
+		notify-send -u critical Test critical
+		;;
+esac

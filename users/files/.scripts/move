@@ -1,0 +1,27 @@
+#!/bin/bash
+
+NODE=$(bspc query -T -n focused | jq '.client | {state: .state, rect: .floatingRectangle}')
+
+MONITOR=$(bspc query -T -m focused | jq '. | {name: .name, rect: .rectangle}')
+
+case $1 in
+	north)
+		let "move=($(echo $NODE | jq .rect.y) - $(echo $MONITOR | jq .rect.y))"
+		bspc node -v 0 -$move
+		;;
+	south)
+		let "move=($(echo $MONITOR | jq .rect.y) + $(echo $MONITOR | jq .rect.height)) - \
+			($(echo $NODE | jq .rect.y) + $(echo $NODE | jq .rect.height))"
+		bspc node -v 0 $move
+		;;
+	east)
+		let "move=($(echo $MONITOR | jq .rect.x) + $(echo $MONITOR | jq .rect.width)) - \
+			($(echo $NODE | jq .rect.x) + $(echo $NODE | jq .rect.width))"
+		bspc node -v $move 0
+		;;
+	west)
+		let "move=($(echo $NODE | jq .rect.x) - $(echo $MONITOR | jq .rect.x))"
+		bspc node -v -$move 0
+		;;
+esac
+

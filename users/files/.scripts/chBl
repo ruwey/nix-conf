@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# chBl [percentage]
+
+dir=${1:0:1}
+num=${1:1}
+
+# Change Brightness
+if [ "$dir" == "+" ]; then
+	light -A $num
+elif [ "$dir" == "-" ]; then
+	light -U $num
+else
+	light -S $num
+fi
+
+# Show Slider
+toXOB "$(light | sed 's/\..*//g')"

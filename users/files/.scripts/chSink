@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Set a new default sink and move all sink-inputs from the old default
+# sync to the new one.
+
+# Record the old default sink's number to move sink inputs later
+oldSink=$(pactl list sinks short | grep "$(pactl info | grep "Default Sink" | sed 's/Default\ Sink:\ //')" | cut -d'	' -f1)
+
+# If there is an argument, set it to the chosen sink, otherwise prompt
+if [ $1 ]; then
+	choice=$1
+else
+	# Prompt the user for new default sink
+	choice=$(pactl list sinks | grep Description: | sed 's/.*: //g' | dmenu -i)
+fi
+
+# Get the name of what the user answered
+newSink=$(pactl list sinks | grep -B 1 ": $choice" | head -1 | sed 's/.*Name: //')
+
+# Set new sink as default
+pactl set-default-sink "$newSink"
+
+pactl list sink-inputs short | cut -d'	' -f1,2 | grep "	$oldSink" | \
+	cut -d'	' -f1 | xargs -d '\n' -I '%%%' -- pactl move-sink-input %%% "$newSink"

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+mapfile -t MONS < <( xrandr -q | grep ' connected' | cut -d' ' -f1 )
+if [ ${#MONS[@]} -eq 2 ]; then
+	xrandr --output ${MONS[1]} --auto
+	xrandr --output ${MONS[0]} --auto --left-of ${MONS[1]}
+fi

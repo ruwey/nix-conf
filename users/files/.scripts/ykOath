@@ -1,0 +1,10 @@
+#!/bin/bash
+
+ID=606606
+APP=$(ykman oath accounts list | dmenu)
+
+dunstify -r $ID "Touch Your Yubikey"
+
+ykman oath accounts code -s "$APP" | xclip -r -selection clipboard
+
+dunstify -r $ID "Copied to clipboard"

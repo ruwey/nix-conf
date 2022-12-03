@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+XOB=${XOB:-"/tmp/to-xob"}
+XOB_CMD=${XOB_CMD:-"wob"}
+XOB_FLAGS=${XOB_FLAGS:-"-a right -a bottom"}
+
+# If in doubt, start xob again
+if [ ! -n "$(pgrep -x $XOB_CMD)" ]; then
+	(tail -f $XOB | $XOB_CMD $XOB_FLAGS) &
+fi
+
+echo $1 >> $XOB

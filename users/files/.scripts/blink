@@ -1,0 +1,11 @@
+#!/bin/bash
+# Blink current window
+
+WAIT=0.1
+picom-trans -c 75
+sleep $WAIT
+picom-trans -c 100
+#sleep $WAIT
+#picom-trans -c 75
+#sleep $WAIT
+#picom-trans -c 100

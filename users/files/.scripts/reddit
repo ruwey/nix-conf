@@ -1,0 +1,5 @@
+#!/bin/bash
+
+posts="$(reddio print -f '$title (r/$subreddit) $id,,')"
+ids="$(echo $posts | sed 's/!t3_//g')"
+slection="$(echo $posts | sed "s/,,/\n/g" | sed 's/ t3.*//g' | rofi -dmenu -l 25)"

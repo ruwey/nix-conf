@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+cd ~
+mv .histfile .histfile_bad
+strings .histfile_bad > .histfile
+#fc -R .histfile

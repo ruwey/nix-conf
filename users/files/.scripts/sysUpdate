@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Kill any existing updates
+tmux kill-session -t Updates
+
+# Create new tmux session to update
+tmux new-session -s Updates -d "yay -Syu --noconfirm; dunstify -r 220200 'Update Completed'"; \
+	dunstify -u low -r 220200 "Update Started"
