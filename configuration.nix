@@ -147,7 +147,7 @@ inp@{ config, pkgs, agenix, self, ... }:
       configure = {
         packages.myPlugins = with pkgs.vimPlugins; {
           start = [vim-nix];
-	  opt = [ ];
+	        opt = [ ];
         };
       };
     })

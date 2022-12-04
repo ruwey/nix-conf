@@ -3,7 +3,7 @@ let
   # add terminator
   systems = [ dKennedy ];
 
-  ruwey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPVG7daV3V43tnci2HbyJaPlRGrR2NEWrWfwxHSP0cd/";
+  ruwey = "age1yubikey1qgdpghtn06jsv34cplgee633t6d32q55y7rwjfjd28y08ulcvngjze3suaj";
 in
 {
   "networks.age".publicKeys = [ ruwey ] ++ systems;
