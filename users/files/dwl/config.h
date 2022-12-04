@@ -94,6 +94,12 @@ LIBINPUT_CONFIG_ACCEL_PROFILE_ADAPTIVE
 static const enum libinput_config_accel_profile accel_profile = LIBINPUT_CONFIG_ACCEL_PROFILE_ADAPTIVE;
 static const double accel_speed = 0.58;
 
+/* Autostart */
+static const char *const autostart[] = {
+        "sh", "-c", "swaybg --image $HOME/Downloads/wallhaven-g8d6rd.jpg --mode fill", NULL,
+        NULL /* terminate */
+};
+
 /* If you want to use the windows key for MODKEY, use WLR_MODIFIER_LOGO */
 #define MODKEY WLR_MODIFIER_LOGO
 

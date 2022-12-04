@@ -108,6 +108,7 @@ inp@{ config, pkgs, agenix, self, ... }:
   services.pipewire = rec {
     enable = true;
     alsa.enable = enable;
+    alsa.support32Bit = true;
     pulse.enable = enable;
   };
 
@@ -171,6 +172,7 @@ inp@{ config, pkgs, agenix, self, ... }:
   # started in user sessions.
   # programs.mtr.enable = true;
   programs.slock.enable = true;
+  programs.steam.enable = true;
   programs.xss-lock = {
     enable = true;
     lockerCommand = "${pkgs.slock}/bin/slock";

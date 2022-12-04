@@ -22,7 +22,19 @@
         doom-themes-enable-italic t)
   (load-theme 'doom-flatwhite t))
 
-;; Evil Bindings
+;; Bindings
+(use-package general)
+
+;;
+(general-create-definer leader
+  :states '(normal insert emacs)
+  :prefix "SPC"
+  :non-normal-prefix "M-SPC")
+
+(leader 'override
+  "f" 'find-file
+  "SPC" 'project-find-file)
+	
 (use-package evil
   :init
   (setq evil-undo-system 'undo-redo

@@ -46,6 +46,7 @@
        in [
         (mkPath (./files/dwl/. + "/main...dm1tz:swallow.patch"))
         (mkPath (./files/dwl/. + "/main...Sevz17:vanitygaps.patch"))
+        (mkPath (./files/dwl/. + "/main...Sevz17:autostart.patch"))
         (mkPath (./files/dwl/. + "/main...ruwey:xwayland.patch"))
       ];
       conf = ./files/dwl/config.h;
@@ -240,8 +241,8 @@
   gtk = {
     enable = true;
     theme = {
-      name = "Graphite";
-      package = pkgs.graphite-gtk-theme;
+      name = "Adaita";
+      package = pkgs.gnome.gnome-themes.extra;
     };
   };
 
