@@ -242,7 +242,7 @@
     enable = true;
     theme = {
       name = "Adaita";
-      package = pkgs.gnome.gnome-themes.extra;
+      package = pkgs.gnome.gnome-themes-extra;
     };
   };
 

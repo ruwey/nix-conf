@@ -26,7 +26,6 @@ inp@{ config, pkgs, agenix, self, ... }:
   ## Wireless/Network
   # Pick only one of the below networking options.
 #  networking.interfaces.wlp115s0f0.macAddress = "58:6C:25:E5:FA:5B";
-  networking.interfaces.wlp115s0f0.macAddress = "D0:C6:37:C7:E1:EC";
   networking.wireless = {
     enable = true;
     environmentFile = config.age.secrets.networks.path;
@@ -188,7 +187,7 @@ inp@{ config, pkgs, agenix, self, ... }:
   ## SSH
   services.openssh = {
     enable = true;
-    startWhenNeeded = true;
+    startWhenNeeded = false;
   };
 
   system.stateVersion = "22.11"; # Did you read the comment?

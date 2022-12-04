@@ -29,6 +29,7 @@ attrs@{ config, lib, pkgs, ... }:
   ];
 
   networking.hostName = "dKennedy";
+  networking.interfaces.wlp115s0f0.macAddress = "D0:C6:37:C7:E1:EC";
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.configurationLimit = 15;
