@@ -48,6 +48,7 @@
         (mkPath (./files/dwl/. + "/main...Sevz17:vanitygaps.patch"))
         (mkPath (./files/dwl/. + "/main...Sevz17:autostart.patch"))
         (mkPath (./files/dwl/. + "/main...ruwey:xwayland.patch"))
+        ./files/dwl/unnatural.patch
       ];
       conf = ./files/dwl/config.h;
       enable-xwayland = true;
