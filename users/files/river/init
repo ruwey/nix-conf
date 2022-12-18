@@ -52,9 +52,12 @@ riverctl map normal Super+Shift Return spawn alacritty
 riverctl map normal Super d spawn bemenu-run
 
 SCRIPTS=$HOME/.scripts
-riverctl map normal None XF86AudioPlay	spawn 'playerctl -p $($HOME/.local/share/mediaPlayer) play-pause'
-riverctl map normal None XF86AudioPrev	spawn 'playerctl -p $($HOME/.local/share/mediaPlayer) previous'
-riverctl map normal None XF86AudioNext	spawn 'playerctl -p $($HOME/.local/share/mediaPlayer) next'
+riverctl map normal None XF86AudioRaiseVolume spawn "$SCRIPTS/chVol +5%"
+riverctl map normal None XF86AudioLowerVolume spawn "$SCRIPTS/chVol -5%"
+riverctl map normal None XF86AudioMute        spawn "$SCRIPTS/chVol mute"
+riverctl map normal None XF86AudioPlay        spawn 'playerctl -p $($HOME/.local/share/mediaPlayer) play-pause'
+riverctl map normal None XF86AudioPrev	      spawn 'playerctl -p $($HOME/.local/share/mediaPlayer) previous'
+riverctl map normal None XF86AudioNext	      spawn 'playerctl -p $($HOME/.local/share/mediaPlayer) next'
 
 riverctl map normal None XF86MonBrightnessUp    spawn "$SCRIPTS/chBl +10"
 riverctl map normal None XF86MonBrightnessDown  spawn "$SCRIPTS/chBl -10"

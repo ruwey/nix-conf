@@ -170,6 +170,11 @@
     recursive = true;
   };
 
+  home.file.wob = {
+    source = ./files/wob;
+    target = ".config/wob";
+  };
+
   home.file.Emacs = {
     source = ./files/emacs;
     target = ".emacs.d";
