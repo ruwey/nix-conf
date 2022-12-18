@@ -2,6 +2,8 @@
 # Set a new default sink and move all sink-inputs from the old default
 # sync to the new one.
 
+dcmd=${DMENU_CMD:-"dmenu -i"}
+
 # Record the old default sink's number to move sink inputs later
 oldSink=$(pactl list sinks short | grep "$(pactl info | grep "Default Sink" | sed 's/Default\ Sink:\ //')" | cut -d'	' -f1)
 
@@ -10,7 +12,7 @@ if [ $1 ]; then
 	choice=$1
 else
 	# Prompt the user for new default sink
-	choice=$(pactl list sinks | grep Description: | sed 's/.*: //g' | dmenu -i)
+	choice=$(pactl list sinks | grep Description: | sed 's/.*: //g' | $dcmd)
 fi
 
 # Get the name of what the user answered

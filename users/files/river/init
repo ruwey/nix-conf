@@ -52,15 +52,21 @@ riverctl map normal Super+Shift Return spawn alacritty
 riverctl map normal Super d spawn bemenu-run
 
 SCRIPTS=$HOME/.scripts
-riverctl map normal None XF86AudioRaiseVolume spawn "$SCRIPTS/chVol +5%"
-riverctl map normal None XF86AudioLowerVolume spawn "$SCRIPTS/chVol -5%"
-riverctl map normal None XF86AudioMute        spawn "$SCRIPTS/chVol mute"
-riverctl map normal None XF86AudioPlay        spawn 'playerctl -p $($HOME/.local/share/mediaPlayer) play-pause'
-riverctl map normal None XF86AudioPrev	      spawn 'playerctl -p $($HOME/.local/share/mediaPlayer) previous'
-riverctl map normal None XF86AudioNext	      spawn 'playerctl -p $($HOME/.local/share/mediaPlayer) next'
+export DMENU_CMD="bemenu"
+riverctl map normal None  XF86AudioRaiseVolume spawn "$SCRIPTS/chVol +5%"
+riverctl map normal None  XF86AudioLowerVolume spawn "$SCRIPTS/chVol -5%"
+riverctl map normal Shift XF86AudioRaiseVolume spawn "$SCRIPTS/chVol +2%"
+riverctl map normal Shift XF86AudioLowerVolume spawn "$SCRIPTS/chVol -2%"
+riverctl map normal None  XF86AudioMute        spawn "$SCRIPTS/chVol mute"
+riverctl map normal Super M                    spawn "$SCRIPTS/chSink"
 
-riverctl map normal None XF86MonBrightnessUp    spawn "$SCRIPTS/chBl +10"
-riverctl map normal None XF86MonBrightnessDown  spawn "$SCRIPTS/chBl -10"
+riverctl map normal None  XF86AudioPlay spawn 'playerctl -p $(cat $HOME/.local/share/mediaPlayer) play-pause'
+riverctl map normal None  XF86AudioPrev spawn 'playerctl -p $(cat $HOME/.local/share/mediaPlayer) previous'
+riverctl map normal None  XF86AudioNext spawn 'playerctl -p $(cat $HOME/.local/share/mediaPlayer) next'
+riverctl map normal Super M             spawn "$SCRIPTS/chMp"
+
+riverctl map normal None  XF86MonBrightnessUp   spawn "$SCRIPTS/chBl +10"
+riverctl map normal None  XF86MonBrightnessDown spawn "$SCRIPTS/chBl -10"
 riverctl map normal Shift XF86MonBrightnessUp   spawn "$SCRIPTS/chBl +5"
 riverctl map normal Shift XF86MonBrightnessDown spawn "$SCRIPTS/chBl -5"
 
@@ -71,6 +77,9 @@ riverctl set-repeat 50 300
 # Colors
 riverctl border-color-focused 0x93a1a1
 riverctl border-color-unfocused 0x586e75
+
+# Wallpaper
+swaybg -i Downloads/wallhaven-g8d6rd.jpg --mode fill &
 
 ### Devices
 # Outputs

@@ -1,7 +1,9 @@
 #!/bin/bash
 
+dcmd=${DMENU_CMD:-dmenu}
+
 ID=606606
-APP=$(ykman oath accounts list | dmenu)
+APP=$(ykman oath accounts list | $dcmd)
 
 dunstify -r $ID "Touch Your Yubikey"
 
