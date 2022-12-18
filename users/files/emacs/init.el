@@ -33,6 +33,7 @@
 
 (leader 'override
   "f" 'find-file
+  "b" 'switch-to-buffer
   "SPC" 'project-find-file)
 	
 (use-package evil
