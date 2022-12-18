@@ -13,12 +13,9 @@
     # Secrets
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
-
-    # For Emacs with wayland
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
   };
 
-  outputs = attrs@{ self, nixpkgs, nixos-hardware, home-manager, emacs-overlay, agenix, ... }:
+  outputs = attrs@{ self, nixpkgs, nixos-hardware, home-manager, agenix, ... }:
     with nixpkgs.lib;
     let
       mapSystems = dir: attrs:

@@ -163,7 +163,10 @@ static const Key keys[] = {
 	{ 0,XF86XK_AudioLowerVolume, spawn, SHCMD("chVol -5%") },
 	{ 0,XF86XK_AudioMute,        spawn, SHCMD("chVol mute") },
 	{ 0,XF86XK_MonBrightnessUp,  spawn, SHCMD("chBl +5") },
-	{ 0,XF86XK_MonBrightnessDown,spawn, SHCMD("chBl -5") }
+	{ 0,XF86XK_MonBrightnessDown,spawn, SHCMD("chBl -5") },
+	{ 0,XF86XK_AudioNext,        spawn, SHCMD("playerctl -p $(cat .local/share/mediaPlayer) next") },
+	{ 0,XF86XK_AudioPrev,        spawn, SHCMD("playerctl -p $(cat .local/share/mediaPlayer) previous") },
+	{ 0,XF86XK_AudioPlay,        spawn, SHCMD("playerctl -p $(cat .local/share/mediaPlayer) play-pause") }
 };
 
 static const Button buttons[] = {

@@ -172,9 +172,9 @@ index 66aea65c..e897a9ff 100644
 +			}
 +			arrange(c->mon);
 +	}
- }
  
- void
+ unset_fullscreen:
+ 	m = c->mon ? c->mon : xytomon(c->geom.x, c->geom.y);
 @@ -2322,6 +2403,16 @@ unmapnotify(struct wl_listener *listener, void *data)
  		cursor_mode = CurNormal;
  		grabc = NULL;

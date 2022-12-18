@@ -58,12 +58,7 @@ inp@{ config, pkgs, agenix, self, ... }:
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
   };
-  nixpkgs = {
-    overlays = [
-      inp.emacs-overlay.overlay
-    ];
-    config.allowUnfree = true;
-  };
+  nixpkgs.config.allowUnfree = true;
 
 
   # GreetD as a display manager
@@ -114,7 +109,7 @@ inp@{ config, pkgs, agenix, self, ... }:
   users.users.ruwey = {
     isNormalUser = true;
     extraGroups = [ "wheel" "video" "input" ];
-    hashedPassword = "$5$ej3cSLkmKvIY3NPj$ECf1ignVDOAx.HxWlC8NigPa6Meg.Yw99/48fdeg1p0";
+    hashedPassword = "$y$j9T$jogoV/ogVv86Fk2/Q4/Cx1$OhPGrT1MhfIBioL6THPMXbP8L/IKeEvqped9Bfvstc6";
     shell = pkgs.zsh;
   };
   users.users.james = {
@@ -150,7 +145,11 @@ inp@{ config, pkgs, agenix, self, ... }:
         };
       };
     })
-    ((emacsPackagesFor emacsPgtkNativeComp).emacsWithPackages (epkgs: [ epkgs.vterm ]))
+    ((emacsPackagesFor (emacs#.override {
+      #withPgtk = true;
+      #nativeComp = true;
+    #}
+    )).emacsWithPackages (epkgs: [ epkgs.vterm ]))
     pinentry-bemenu
     pinentry
     pinentry_curses

@@ -16,6 +16,7 @@
     gnome.nautilus
     qalculate-gtk gnuplot
     steam
+    zathura
 
     # Emacs Adjacent
     nuspell
@@ -47,13 +48,13 @@
         (mkPath (./files/dwl/. + "/main...dm1tz:swallow.patch"))
         (mkPath (./files/dwl/. + "/main...Sevz17:vanitygaps.patch"))
         (mkPath (./files/dwl/. + "/main...Sevz17:autostart.patch"))
-        (mkPath (./files/dwl/. + "/main...ruwey:xwayland.patch"))
         ./files/dwl/unnatural.patch
       ];
       conf = ./files/dwl/config.h;
       enable-xwayland = true;
     })
     grim slurp
+    imv
     river
     swaybg
     wob

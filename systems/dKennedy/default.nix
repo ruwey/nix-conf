@@ -35,6 +35,9 @@ attrs@{ config, lib, pkgs, ... }:
   boot.loader.systemd-boot.configurationLimit = 15;
   boot.loader.efi.canTouchEfiVariables = false;
 
+  # Currently Broken
+  # boot.extraModulePackages = with config.boot.kernelPackages; [ apfs ];
+
   powerManagement.powertop.enable = lib.mkDefault true;
 
   services.xserver = {
