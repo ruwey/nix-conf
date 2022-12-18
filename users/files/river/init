@@ -1,0 +1,85 @@
+#!/bin/sh
+
+### Bindings
+# Window Management
+riverctl map normal Super+Shift Q close
+riverctl map normal Super+Shift E exit
+riverctl map normal Super F toggle-fullscreen
+
+# Change Focus
+riverctl map normal Super J focus-view next
+riverctl map normal Super K focus-view previous
+
+# Change Location
+riverctl map normal Super+Shift J swap next
+riverctl map normal Super+Shift K swap previous
+riverctl map normal Super Return zoom
+riverctl map normal Super H send-layout-cmd rivertile "main-ratio -0.05"
+riverctl map normal Super L send-layout-cmd rivertile "main-ratio +0.05"
+
+# Change Tags
+for i in $(seq 1 9)
+do
+    tags=$((1 << ($i - 1)))
+
+    # Super+[1-9] to focus tag [0-8]
+    riverctl map normal Super $i set-focused-tags $tags
+
+    # Super+Shift+[1-9] to tag focused view with tag [0-8]
+    riverctl map normal Super+Shift $i set-view-tags $tags
+
+    # Super+Ctrl+[1-9] to toggle focus of tag [0-8]
+    riverctl map normal Super+Control $i toggle-focused-tags $tags
+
+    # Super+Shift+Ctrl+[1-9] to toggle tag [0-8] of focused view
+    riverctl map normal Super+Shift+Control $i toggle-view-tags $tags
+done
+riverctl map normal Super 0 set-focused-tags $all_tags
+riverctl map normal Super+Shift 0 set-view-tags $all_tags
+
+# Change Monitor
+riverctl map normal Super Period focus-output next
+riverctl map normal Super Comma focus-output previous
+riverctl map normal Super+Shift Period send-to-output next
+riverctl map normal Super+Shift Comma send-to-output previous
+
+# Mouse Stuff
+riverctl map-pointer normal Super BTN_LEFT move-view
+riverctl map-pointer normal Super BTN_RIGHT resize-view
+
+# Launchers
+riverctl map normal Super+Shift Return spawn alacritty
+riverctl map normal Super d spawn bemenu-run
+
+SCRIPTS=$HOME/.scripts
+riverctl map normal None XF86AudioPlay	spawn 'playerctl -p $($HOME/.local/share/mediaPlayer) play-pause'
+riverctl map normal None XF86AudioPrev	spawn 'playerctl -p $($HOME/.local/share/mediaPlayer) previous'
+riverctl map normal None XF86AudioNext	spawn 'playerctl -p $($HOME/.local/share/mediaPlayer) next'
+
+riverctl map normal None XF86MonBrightnessUp    spawn "$SCRIPTS/chBl +10"
+riverctl map normal None XF86MonBrightnessDown  spawn "$SCRIPTS/chBl -10"
+riverctl map normal Shift XF86MonBrightnessUp   spawn "$SCRIPTS/chBl +5"
+riverctl map normal Shift XF86MonBrightnessDown spawn "$SCRIPTS/chBl -5"
+
+### Settings
+# Keyboard Repeat
+riverctl set-repeat 50 300
+
+# Colors
+riverctl border-color-focused 0x93a1a1
+riverctl border-color-unfocused 0x586e75
+
+### Devices
+# Outputs
+wlr-randr --output eDP-1 --scale 1.5
+
+# Inputs
+riverctl input 1452:640:bcm5974 accel-profile adaptive
+riverctl input 1452:640:bcm5974 pointer-accel 0.58
+riverctl input 1452:640:bcm5974 click-method clickfinger
+riverctl input 1452:640:bcm5974 natural-scroll enabled
+riverctl input 1452:640:bcm5974 tap disabled
+
+### Layout
+riverctl default-layout rivertile
+rivertile -view-padding 10

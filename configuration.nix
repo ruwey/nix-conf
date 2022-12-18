@@ -70,6 +70,7 @@ inp@{ config, pkgs, agenix, self, ... }:
     };
   };
   environment.etc."greetd/environments".text = ''
+                                             river
                                              dwl
                                              sway
                                              zsh

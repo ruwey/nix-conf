@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 XOB=${XOB:-"/tmp/to-xob"}
 XOB_CMD=${XOB_CMD:-"wob"}
-XOB_FLAGS=${XOB_FLAGS:-"-a right -a bottom"}
+XOB_FLAGS=${XOB_FLAGS}
 
 # If in doubt, start xob again
 if [ ! -n "$(pgrep -x $XOB_CMD)" ]; then

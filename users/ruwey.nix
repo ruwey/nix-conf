@@ -32,27 +32,28 @@
 
     # Wayland
     bemenu
-    ((dwl.overrideAttrs (old: final: {
-      src = fetchGit {
-        url = "https://github.com/djpohly/dwl";
-        rev = "87d87cc4041a997d00ebf234ca5118b9248a3b95";
-      };})).override {
-      patches = let
-        mkPath = with builtins; (ppath:
-          path {
-            path = ppath;
-            name = elemAt (split ":" (toString ppath)) 2;
-          }
-        );
-       in [
-        (mkPath (./files/dwl/. + "/main...dm1tz:swallow.patch"))
-        (mkPath (./files/dwl/. + "/main...Sevz17:vanitygaps.patch"))
-        (mkPath (./files/dwl/. + "/main...Sevz17:autostart.patch"))
-        ./files/dwl/unnatural.patch
-      ];
-      conf = ./files/dwl/config.h;
-      enable-xwayland = true;
-    })
+   # ((dwl.overrideAttrs (old: final: {
+   #   src = fetchGit {
+   #     url = "https://github.com/djpohly/dwl";
+   #     rev = "c60f65195186e6c72ec66ba7f10139a420a595a0";
+   #   };})).override {
+   #   wlroots = pkgs.wlroots_0_16;
+   #   patches = let
+   #     mkPath = with builtins; (ppath:
+   #       path {
+   #         path = ppath;
+   #         name = elemAt (split ":" (toString ppath)) 2;
+   #       }
+   #     );
+   #    in [
+   #     (mkPath (./files/dwl/. + "/main...dm1tz:swallow.patch"))
+   #     (mkPath (./files/dwl/. + "/main...Sevz17:vanitygaps.patch"))
+   #     (mkPath (./files/dwl/. + "/main...Sevz17:autostart.patch"))
+   #     ./files/dwl/unnatural.patch
+   #   ];
+   #   conf = ./files/dwl/config.h;
+   #   enable-xwayland = true;
+   # })
     grim slurp
     imv
     river
@@ -160,6 +161,12 @@
   home.file.Scripts = {
     source = ./files/.scripts;
     target = ".scripts";
+    recursive = true;
+  };
+
+  home.file.river = {
+    source = ./files/river;
+    target = ".config/river";
     recursive = true;
   };
 
