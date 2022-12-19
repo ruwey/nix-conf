@@ -142,6 +142,11 @@
         port = 69;
         user = "ruwey";
       };
+      js = {
+        hostname = "100.38.3.43";
+        port = 69;
+        user = "root";
+      };
     };
   };
   programs.git = {

@@ -70,6 +70,9 @@ riverctl map normal None  XF86MonBrightnessDown spawn "$SCRIPTS/chBl -10"
 riverctl map normal Shift XF86MonBrightnessUp   spawn "$SCRIPTS/chBl +5"
 riverctl map normal Shift XF86MonBrightnessDown spawn "$SCRIPTS/chBl -5"
 
+### Rules
+riverctl float-filter-add app-id pinentry-qt
+
 ### Settings
 # Keyboard Repeat
 riverctl set-repeat 50 300

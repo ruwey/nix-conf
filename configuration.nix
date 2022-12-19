@@ -146,10 +146,10 @@ inp@{ config, pkgs, agenix, self, ... }:
         };
       };
     })
-    ((emacsPackagesFor (emacs#.override {
-      #withPgtk = true;
+    ((emacsPackagesFor (emacs.override {
+      withPgtk = true;
       #nativeComp = true;
-    #}
+    }
     )).emacsWithPackages (epkgs: [ epkgs.vterm ]))
     pinentry-bemenu
     pinentry
@@ -180,8 +180,7 @@ inp@{ config, pkgs, agenix, self, ... }:
   services.pcscd.enable = true;
   programs.gnupg.agent = {
     enable = true;
-    enableSSHSupport = true;
-    pinentryFlavor = "gnome3";
+    pinentryFlavor = "qt";
   };
 
   ## SSH
