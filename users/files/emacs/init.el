@@ -85,6 +85,15 @@
 (use-package nix-mode
   :mode ("\\.nix\\'" "\\.nix.in\\'"))
 
+;; Org Mode Conf
+(setq org-agenda-files `("~/Documents/School"))
+
+(use-package evil-org
+  :hook (org-mode . evil-org-mode)
+  :config
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys))
+
 (use-package cdlatex
   :hook (org-mode . org-cdlatex-mode))
 

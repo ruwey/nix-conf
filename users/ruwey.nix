@@ -15,14 +15,18 @@
     firefox
     gnome.nautilus
     qalculate-gtk gnuplot
+    signal-desktop
     steam
     zathura
 
     # Emacs Adjacent
+    ((emacsPackagesFor (emacsPgtk
+    )).emacsWithPackages (epkgs: [ epkgs.vterm ]))
     nuspell
     hunspellDicts.en-us-large
     enchant
     texlive.combined.scheme-full
+    notmuch muchsync
 
     # Xorg
     dmenu
@@ -219,6 +223,8 @@
   programs.himalaya.enable = true;
   programs.mbsync.enable = true;
 
+  services.kdeconnect.enable = true;
+
   # Music Adjacent
   services.spotifyd = {
     enable = true;
@@ -231,6 +237,13 @@
     };
   };
 
+
+  programs.mpv = {
+    enable = true;
+    config = {
+      save-position-on-quit = true;
+    };
+  };
   # X
   xsession = {
     enable = false;

@@ -34,7 +34,8 @@ inp@{ config, pkgs, agenix, self, ... }:
       MySpectrumWiFi70-5G.psk = "@SPECTRUM@";
       ncpsp.psk = "@NCPSP@";
       iPhoneeee.psk = "@IPHONEEEE@";
-      wevegotthenicestrockofthemall.psk = "s3m!nole";
+      wevegotthenicestrockofthemall.psk = "@WEVEGOTTHENICESTROCKOFTHEMALL@";
+      Windy.psk = "@WINDY@";
     };
   };
 
@@ -48,18 +49,70 @@ inp@{ config, pkgs, agenix, self, ... }:
   time.timeZone = "America/New_York";
 
   # Nix Configuration
-  nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
-    trusted-substituters = [ 
-      "https://t2linux.cachix.org" "https://nix-community.cachix.org"
-    ];
-    trusted-public-keys = [
-      "t2linux.cachix.org-1:P733c5Gt1qTcxsm+Bae0renWnT8OLs0u9+yfaK2Bejw="
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+  nix = {
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+      trusted-substituters = [ 
+        "https://t2linux.cachix.org" "https://nix-community.cachix.org"
+      ];
+      trusted-public-keys = [
+        "t2linux.cachix.org-1:P733c5Gt1qTcxsm+Bae0renWnT8OLs0u9+yfaK2Bejw="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ];
+    };
+
+    # Overrides to make the cli quicker
+    registry = {
+      nixpkgs = { # make nixpkgs point to already installed nixpkg location
+        from = {
+          id = "nixpkgs";
+          type = "indirect";
+        };
+        flake = inp.nixpkgs;
+      };
+      nixpkgs-unstable = { # reserve link to the live and up-to-date version
+        from = {
+          id = "nixpkgs-unstable";
+          type = "indirect";
+        };
+        to = {
+          type = "github";
+          owner = "NixOS";
+          repo = "nixpkgs";
+          ref = "nixos-unstable";
+        };
+      };
+      nixpkgs-stable = { # reserve link to the live and up-to-date version
+        from = {
+          id = "nixpkgs-stable";
+          type = "indirect";
+        };
+        to = {
+          type = "github";
+          owner = "NixOS";
+          repo = "nixpkgs";
+          ref = "nixos-22.11";
+        };
+      };
+    };
+  };
+  nixpkgs = {
+    config.allowUnfree = true;
+    overlays = [
+      inp.emacs-overlay.overlays.default
+
+      # /Remotely/ stable emacs version w/ wayland highdpi support
+      (sup: prev: {
+        emacs29Pgtk = prev.emacsPgtk.overrideAttrs
+          (old: {
+            name = "emacs-pgtk";
+            version = inp.emacs29-src.shortRev;
+            src = inp.emacs29-src;
+            withPgtk = true;
+          });
+      })
     ];
   };
-  nixpkgs.config.allowUnfree = true;
-
 
   # GreetD as a display manager
   services.greetd = {
@@ -146,11 +199,6 @@ inp@{ config, pkgs, agenix, self, ... }:
         };
       };
     })
-    ((emacsPackagesFor (emacs.override {
-      withPgtk = true;
-      #nativeComp = true;
-    }
-    )).emacsWithPackages (epkgs: [ epkgs.vterm ]))
     pinentry-bemenu
     pinentry
     pinentry_curses
@@ -182,6 +230,8 @@ inp@{ config, pkgs, agenix, self, ... }:
     enable = true;
     pinentryFlavor = "qt";
   };
+
+  programs.kdeconnect.enable = true;
 
   ## SSH
   services.openssh = {

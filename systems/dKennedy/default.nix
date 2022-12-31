@@ -37,6 +37,7 @@ attrs@{ config, lib, pkgs, ... }:
 
   # Currently Broken
   # boot.extraModulePackages = with config.boot.kernelPackages; [ apfs ];
+  boot.supportedFilesystems = [ "apfs" ];
 
   powerManagement.powertop.enable = lib.mkDefault true;
 

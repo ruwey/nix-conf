@@ -9,13 +9,16 @@
     nixos-hardware.url = "github:kekrby/nixos-hardware";
 
     home-manager.url = "github:nix-community/home-manager";
+    emacs-overlay.url = "github:Nix-Community/emacs-overlay";
+    emacs29-src = { url = "github:emacs-mirror/emacs/emacs-29";
+                    flake = false; };
 
     # Secrets
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = attrs@{ self, nixpkgs, nixos-hardware, home-manager, agenix, ... }:
+  outputs = attrs@{ self, nixpkgs, nixos-hardware, home-manager, emacs-overlay, emacs29-src, agenix, ... }:
     with nixpkgs.lib;
     let
       mapSystems = dir: attrs:
