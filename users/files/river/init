@@ -1,55 +1,59 @@
 #!/bin/sh
 
 ### Bindings
+MOD=Super
 # Window Management
-riverctl map normal Super+Shift Q close
-riverctl map normal Super+Shift E exit
-riverctl map normal Super F toggle-fullscreen
+riverctl map normal $MOD+Shift Q close
+riverctl map normal $MOD+Shift E exit
+riverctl map normal $MOD F toggle-fullscreen
+riverctl map normal $MOD v toggle-float
 
 # Change Focus
-riverctl map normal Super J focus-view next
-riverctl map normal Super K focus-view previous
+riverctl map normal $MOD J focus-view next
+riverctl map normal $MOD K focus-view previous
 
 # Change Location
-riverctl map normal Super+Shift J swap next
-riverctl map normal Super+Shift K swap previous
-riverctl map normal Super Return zoom
-riverctl map normal Super H send-layout-cmd rivertile "main-ratio -0.05"
-riverctl map normal Super L send-layout-cmd rivertile "main-ratio +0.05"
+riverctl map normal $MOD+Shift J swap next
+riverctl map normal $MOD+Shift K swap previous
+riverctl map normal $MOD Return zoom
+riverctl map normal $MOD H send-layout-cmd rivertile "main-ratio -0.05"
+riverctl map normal $MOD L send-layout-cmd rivertile "main-ratio +0.05"
 
 # Change Tags
 for i in $(seq 1 9)
 do
     tags=$((1 << ($i - 1)))
+    echo $tags
 
-    # Super+[1-9] to focus tag [0-8]
-    riverctl map normal Super $i set-focused-tags $tags
+    # $MOD+[1-9] to focus tag [0-8]
+    riverctl map normal $MOD $i set-focused-tags $tags
 
-    # Super+Shift+[1-9] to tag focused view with tag [0-8]
-    riverctl map normal Super+Shift $i set-view-tags $tags
+    # $MOD+Shift+[1-9] to tag focused view with tag [0-8]
+    riverctl map normal $MOD+Shift $i set-view-tags $tags
 
-    # Super+Ctrl+[1-9] to toggle focus of tag [0-8]
-    riverctl map normal Super+Control $i toggle-focused-tags $tags
+    # $MOD+Ctrl+[1-9] to toggle focus of tag [0-8]
+    riverctl map normal $MOD+Control $i toggle-focused-tags $tags
 
-    # Super+Shift+Ctrl+[1-9] to toggle tag [0-8] of focused view
-    riverctl map normal Super+Shift+Control $i toggle-view-tags $tags
+    # $MOD+Shift+Ctrl+[1-9] to toggle tag [0-8] of focused view
+    riverctl map normal $MOD+Shift+Control $i toggle-view-tags $tags
 done
-riverctl map normal Super 0 set-focused-tags $all_tags
-riverctl map normal Super+Shift 0 set-view-tags $all_tags
+all_tags=$(((1 << 32) - 1))
+riverctl map normal $MOD 0 set-focused-tags $all_tags
+riverctl map normal $MOD+Shift 0 set-view-tags $all_tags
 
 # Change Monitor
-riverctl map normal Super Period focus-output next
-riverctl map normal Super Comma focus-output previous
-riverctl map normal Super+Shift Period send-to-output next
-riverctl map normal Super+Shift Comma send-to-output previous
+riverctl map normal $MOD Period focus-output next
+riverctl map normal $MOD Comma focus-output previous
+riverctl map normal $MOD+Shift Period send-to-output next
+riverctl map normal $MOD+Shift Comma send-to-output previous
 
 # Mouse Stuff
-riverctl map-pointer normal Super BTN_LEFT move-view
-riverctl map-pointer normal Super BTN_RIGHT resize-view
+riverctl map-pointer normal $MOD BTN_LEFT move-view
+riverctl map-pointer normal $MOD BTN_RIGHT resize-view
 
 # Launchers
-riverctl map normal Super+Shift Return spawn alacritty
-riverctl map normal Super d spawn bemenu-run
+riverctl map normal $MOD+Shift Return spawn alacritty
+riverctl map normal $MOD d spawn bemenu-run
 
 SCRIPTS=$HOME/.scripts
 export DMENU_CMD="bemenu"
@@ -58,12 +62,12 @@ riverctl map normal None  XF86AudioLowerVolume spawn "$SCRIPTS/chVol -5%"
 riverctl map normal Shift XF86AudioRaiseVolume spawn "$SCRIPTS/chVol +2%"
 riverctl map normal Shift XF86AudioLowerVolume spawn "$SCRIPTS/chVol -2%"
 riverctl map normal None  XF86AudioMute        spawn "$SCRIPTS/chVol mute"
-riverctl map normal Super M                    spawn "$SCRIPTS/chSink"
+riverctl map normal $MOD M                    spawn "$SCRIPTS/chSink"
 
 riverctl map normal None  XF86AudioPlay spawn 'playerctl -p $(cat $HOME/.local/share/mediaPlayer) play-pause'
 riverctl map normal None  XF86AudioPrev spawn 'playerctl -p $(cat $HOME/.local/share/mediaPlayer) previous'
 riverctl map normal None  XF86AudioNext spawn 'playerctl -p $(cat $HOME/.local/share/mediaPlayer) next'
-riverctl map normal Super M             spawn "$SCRIPTS/chMp"
+riverctl map normal $MOD M             spawn "$SCRIPTS/chMp"
 
 riverctl map normal None  XF86MonBrightnessUp   spawn "$SCRIPTS/chBl +10"
 riverctl map normal None  XF86MonBrightnessDown spawn "$SCRIPTS/chBl -10"
@@ -76,6 +80,7 @@ riverctl float-filter-add app-id pinentry-qt
 ### Settings
 # Keyboard Repeat
 riverctl set-repeat 50 300
+riverctl xcursor-theme macOS-BigSur 26
 
 # Colors
 riverctl border-color-focused 0x93a1a1

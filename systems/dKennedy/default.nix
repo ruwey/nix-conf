@@ -9,12 +9,9 @@ attrs@{ config, lib, pkgs, ... }:
       attrs.nixos-hardware.nixosModules.apple-t2
     ];
 
-  # Load T2 Mac Stuff from cached version of nix packages to avoid having to build the kernel
-  nixpkgs.overlays = [
-    (super: self: { t2-linux = attrs.pkgsTCache.callPackage "${attrs.nixos-hardware}/apple/t2/pkgs/t2-linux.nix" {pkgs = attrs.pkgsTCache;};})
-  ] ++ map
-      (pkg: super: self: { pkg = attrs.pkgsTCache.callPackage "${attrs.nixos-hardware}/apple/t2/pkgs/${pkg}.nix" {};})
-      [ "apple-bce" "apple-ibridge" ];
+  # Use the last build linux kernel on the t2 linux cache
+  boot.kernelPackages = with pkgs; lib.mkForce (recurseIntoAttrs (linuxPackagesFor
+    (lib.callPackageWith attrs.pkgsTCache "${attrs.nixos-hardware}/apple/t2/pkgs/linux-t2.nix" {})));
 
   hardware.firmware = [
     (pkgs.stdenvNoCC.mkDerivation {
@@ -37,7 +34,7 @@ attrs@{ config, lib, pkgs, ... }:
 
   # Currently Broken
   # boot.extraModulePackages = with config.boot.kernelPackages; [ apfs ];
-  boot.supportedFilesystems = [ "apfs" ];
+  #boot.supportedFilesystems = [ "apfs" ];
 
   powerManagement.powertop.enable = lib.mkDefault true;
 

@@ -82,7 +82,7 @@ inp@{ config, pkgs, agenix, self, ... }:
           ref = "nixos-unstable";
         };
       };
-      nixpkgs-stable = { # reserve link to the live and up-to-date version
+      nixpkgs-stable = { 
         from = {
           id = "nixpkgs-stable";
           type = "indirect";
@@ -98,20 +98,20 @@ inp@{ config, pkgs, agenix, self, ... }:
   };
   nixpkgs = {
     config.allowUnfree = true;
-    overlays = [
-      inp.emacs-overlay.overlays.default
+    #overlays = [
+    #  inp.emacs-overlay.overlays.default
 
-      # /Remotely/ stable emacs version w/ wayland highdpi support
-      (sup: prev: {
-        emacs29Pgtk = prev.emacsPgtk.overrideAttrs
-          (old: {
-            name = "emacs-pgtk";
-            version = inp.emacs29-src.shortRev;
-            src = inp.emacs29-src;
-            withPgtk = true;
-          });
-      })
-    ];
+    #  # /Remotely/ stable emacs version w/ wayland highdpi support
+    #  (sup: prev: {
+    #    emacs29Pgtk = prev.emacsPgtk.overrideAttrs
+    #      (old: {
+    #        name = "emacs-pgtk";
+    #        version = inp.emacs29-src.shortRev;
+    #        src = inp.emacs29-src;
+    #        withPgtk = true;
+    #      });
+    #  })
+    #];
   };
 
   # GreetD as a display manager
@@ -175,6 +175,7 @@ inp@{ config, pkgs, agenix, self, ... }:
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
+    extraSpecialArgs = { inherit (inp) emacs-overlay; };
   };
 
   environment.variables = rec {

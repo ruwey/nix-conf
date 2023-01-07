@@ -86,7 +86,8 @@
   :mode ("\\.nix\\'" "\\.nix.in\\'"))
 
 ;; Org Mode Conf
-(setq org-agenda-files `("~/Documents/School"))
+(setq org-agenda-files `("~/Documents/School")
+      org-todo-keywords `((sequence "TODO" "DONE") (sequence "WAIT" "|")))
 
 (use-package evil-org
   :hook (org-mode . evil-org-mode)

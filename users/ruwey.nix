@@ -1,4 +1,4 @@
-{ home, pkgs, osConfig, ... }:
+inp@{ home, pkgs, osConfig, ... }:
 
 {
   # Packages
@@ -20,8 +20,8 @@
     zathura
 
     # Emacs Adjacent
-    ((emacsPackagesFor (emacsPgtk
-    )).emacsWithPackages (epkgs: [ epkgs.vterm ]))
+    ((emacsPackagesFor (inp.emacs-overlay.packages."x86_64-linux".emacsPgtk))
+      .emacsWithPackages (epkgs: [ epkgs.vterm ]))
     nuspell
     hunspellDicts.en-us-large
     enchant
@@ -35,29 +35,8 @@
     xwallpaper
 
     # Wayland
+    apple-cursor
     bemenu
-   # ((dwl.overrideAttrs (old: final: {
-   #   src = fetchGit {
-   #     url = "https://github.com/djpohly/dwl";
-   #     rev = "c60f65195186e6c72ec66ba7f10139a420a595a0";
-   #   };})).override {
-   #   wlroots = pkgs.wlroots_0_16;
-   #   patches = let
-   #     mkPath = with builtins; (ppath:
-   #       path {
-   #         path = ppath;
-   #         name = elemAt (split ":" (toString ppath)) 2;
-   #       }
-   #     );
-   #    in [
-   #     (mkPath (./files/dwl/. + "/main...dm1tz:swallow.patch"))
-   #     (mkPath (./files/dwl/. + "/main...Sevz17:vanitygaps.patch"))
-   #     (mkPath (./files/dwl/. + "/main...Sevz17:autostart.patch"))
-   #     ./files/dwl/unnatural.patch
-   #   ];
-   #   conf = ./files/dwl/config.h;
-   #   enable-xwayland = true;
-   # })
     grim slurp
     imv
     river
