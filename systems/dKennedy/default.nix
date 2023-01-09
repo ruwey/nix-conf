@@ -32,6 +32,10 @@ attrs@{ config, lib, pkgs, ... }:
   boot.loader.systemd-boot.configurationLimit = 15;
   boot.loader.efi.canTouchEfiVariables = false;
 
+  boot.resumeDevice = "/dev/disk/by-uuid/2cf9163b-4595-4e55-81dc-36772d233c61";
+  powerManagement.powerDownCommands = "${pkgs.kmod}/bin/rmmod brcmfmac";
+  powerManagement.powerUpCommands = "${pkgs.kmod}/bin/modprobe brcmfmac";
+
   # Currently Broken
   # boot.extraModulePackages = with config.boot.kernelPackages; [ apfs ];
   #boot.supportedFilesystems = [ "apfs" ];
