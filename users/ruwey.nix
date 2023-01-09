@@ -16,15 +16,9 @@ inp@{ home, pkgs, osConfig, ... }:
     foliate
     gnome.nautilus
     qalculate-gtk gnuplot
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
     signal-desktop
     spotify
     steam
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
     zathura
 
     # Gaming
