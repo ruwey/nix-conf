@@ -130,6 +130,7 @@ inp@{ config, pkgs, agenix, self, ... }:
                                              '';
   # Enable the X11 windowing system.
   security.polkit.enable = true;
+  security.pam.services.waylock = {}j
   fonts.enableDefaultFonts = true;
   services.xserver.libinput = {
     enable = true;

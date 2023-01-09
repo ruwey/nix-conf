@@ -41,6 +41,7 @@ inp@{ home, pkgs, osConfig, ... }:
     imv
     river
     swaybg
+    waylock
     wob
     wlr-randr
   ];
