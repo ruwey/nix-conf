@@ -20,26 +20,27 @@ riverctl map normal $MOD H send-layout-cmd rivertile "main-ratio -0.05"
 riverctl map normal $MOD L send-layout-cmd rivertile "main-ratio +0.05"
 
 # Change Tags
-for i in $(seq 1 9)
+for i in $(seq 1 10)
 do
     tags=$((1 << ($i - 1)))
-    echo $tags
+    button=${i:(-1)}
 
     # $MOD+[1-9] to focus tag [0-8]
-    riverctl map normal $MOD $i set-focused-tags $tags
+    riverctl map normal $MOD $button set-focused-tags $tags
 
     # $MOD+Shift+[1-9] to tag focused view with tag [0-8]
-    riverctl map normal $MOD+Shift $i set-view-tags $tags
+    riverctl map normal $MOD+Shift $button set-view-tags $tags
 
     # $MOD+Ctrl+[1-9] to toggle focus of tag [0-8]
-    riverctl map normal $MOD+Control $i toggle-focused-tags $tags
+    riverctl map normal $MOD+Control $button toggle-focused-tags $tags
 
     # $MOD+Shift+Ctrl+[1-9] to toggle tag [0-8] of focused view
-    riverctl map normal $MOD+Shift+Control $i toggle-view-tags $tags
+    riverctl map normal $MOD+Shift+Control $button toggle-view-tags $tags
 done
 all_tags=$(((1 << 32) - 1))
-riverctl map normal $MOD 0 set-focused-tags $all_tags
-riverctl map normal $MOD+Shift 0 set-view-tags $all_tags
+MOD=Super
+riverctl map normal $MOD minus set-focused-tags $all_tags
+riverctl map normal $MOD+Shift minus set-view-tags $all_tags
 
 # Change Monitor
 riverctl map normal $MOD Period focus-output next
@@ -77,6 +78,18 @@ riverctl map normal Shift XF86MonBrightnessDown spawn "$SCRIPTS/chBl -5"
 ### Rules
 riverctl float-filter-add app-id pinentry-qt
 
+### Devices
+# Outputs
+wlr-randr --output eDP-1 --scale 1.5
+
+# Inputs
+TOUCHPAD=pointer-1452-640-bcm5974
+riverctl input $TOUCHPAD accel-profile adaptive
+riverctl input $TOUCHPAD pointer-accel 0.58
+riverctl input $TOUCHPAD click-method clickfinger
+riverctl input $TOUCHPAD natural-scroll enabled
+riverctl input $TOUCHPAD tap disabled
+
 ### Settings
 # Keyboard Repeat
 riverctl set-repeat 50 300
@@ -89,17 +102,7 @@ riverctl border-color-unfocused 0x586e75
 # Wallpaper
 swaybg -i Downloads/wallhaven-g8d6rd.jpg --mode fill &
 
-### Devices
-# Outputs
-wlr-randr --output eDP-1 --scale 1.5
-
-# Inputs
-riverctl input 1452:640:bcm5974 accel-profile adaptive
-riverctl input 1452:640:bcm5974 pointer-accel 0.58
-riverctl input 1452:640:bcm5974 click-method clickfinger
-riverctl input 1452:640:bcm5974 natural-scroll enabled
-riverctl input 1452:640:bcm5974 tap disabled
-
 ### Layout
+riverctl attach-mode bottom
 riverctl default-layout rivertile
 rivertile -view-padding 10

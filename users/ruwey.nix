@@ -10,12 +10,14 @@ inp@{ home, pkgs, osConfig, ... }:
 
     ## Desktop
     alacritty
-    spotify
+    cozy
     discord-canary
     firefox
+    foliate
     gnome.nautilus
     qalculate-gtk gnuplot
     signal-desktop
+    spotify
     steam
     zathura
 
